@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Great Vibes, Dancing Script, & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#B76E79',
+                        roseLight: '#FFE4E1',
+                        roseSoft: '#FFF0F5',
+                        warmGold: '#D4AF37',
+                        goldLight: '#F3E5AB',
+                        cream: '#FAF0E6',
+                        deepRose: '#8B263E'
+                    },
+                    fontFamily: {
+                        cursive: ['"Great Vibes"', 'cursive'],
+                        handwriting: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Reset & Multi-step Layout */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FAF0E6 50%, #FFE4E1 100%);
+            color: #4A3B32;
+            touch-action: pan-y;
+        }
+
+        /* Particle Canvas Overlay */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Slide Presentation Container */
+        .slides-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.92) translateY(30px);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, visibility 0.8s;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            z-index: 20;
+        }
+
+        .slide.prev-slide {
+            transform: scale(0.92) translateY(-30px);
+        }
+
+        /* Text Gradients */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #B76E79 50%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3D Card Flip Effects */
+        .card-perspective {
+            perspective: 1200px;
+        }
+
+        .card-inner {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.is-open {
+            transform: rotateY(-180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Spinning vinyl record */
+        .spin-slow {
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Sound Wave Bar Animation */
+        .bar {
+            width: 3px;
+            height: 12px;
+            background-color: #B76E79;
+            animation: bounce 1.2s ease-in-out infinite alternate;
+        }
+        .bar:nth-child(2) { animation-delay: 0.2s; }
+        .bar:nth-child(3) { animation-delay: 0.4s; }
+        .bar:nth-child(4) { animation-delay: 0.1s; }
+
+        @keyframes bounce {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
+
+        /* Gift Box Shake */
+        .gift-box:hover {
+            animation: shake 0.6s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            20% { transform: rotate(-8deg) scale(1.05); }
+            40% { transform: rotate(8deg) scale(1.05); }
+            60% { transform: rotate(-5deg) scale(1.05); }
+            80% { transform: rotate(5deg) scale(1.05); }
+        }
+
+        /* Glow Floating Button */
+        .glow-btn {
+            box-shadow: 0 0 20px rgba(183, 110, 121, 0.4), 0 0 10px rgba(212, 175, 55, 0.3);
+            animation: pulseGlow 2.5s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(183, 110, 121, 0.4), 0 0 8px rgba(212, 175, 55, 0.3);
+                transform: translateY(0);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(183, 110, 121, 0.7), 0 0 15px rgba(212, 175, 55, 0.5);
+                transform: translateY(-3px);
+            }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Typewriter Cursor */
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            color: #B76E79;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas cho hiệu ứng cánh hoa & trái tim trôi -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- NÚT QUAY LẠI TRANG TRƯỚC (Nổi góc trên bên trái) -->
+    <button id="prev-step-btn" class="fixed top-5 left-5 z-40 bg-white/80 backdrop-blur-md text-roseGold hover:bg-roseGold hover:text-white border border-roseGold/30 w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all opacity-0 pointer-events-none transform -translate-x-2">
+        <i class="fa-solid fa-arrow-left text-sm"></i>
+    </button>
+
+    <!-- TRÌNH PHÁT NHẠC NỀN (Nổi góc trên bên phải) -->
+    <div id="music-player" class="fixed top-5 right-5 z-40 flex items-center gap-2.5 bg-white/80 backdrop-blur-md p-2 px-3.5 rounded-full shadow-md border border-roseGold/30 transition-all">
+        <div id="record-icon" class="w-7 h-7 rounded-full bg-roseGold flex items-center justify-center text-white text-xs shadow-inner transition-transform">
+            <i class="fa-solid fa-compact-disc"></i>
+        </div>
+        <button id="toggle-music-btn" class="w-7 h-7 rounded-full bg-roseLight hover:bg-roseGold hover:text-white text-roseGold flex items-center justify-center transition">
+            <i class="fa-solid fa-play text-xs" id="play-icon"></i>
+        </button>
+        <!-- Sound visualizer -->
+        <div id="visualizer" class="hidden flex items-end gap-0.5 h-3.5 px-0.5">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+    <audio id="bg-audio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112185.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SLIDES CONTAINER -->
+    <div class="slides-wrapper">
+
+        <!-- ================= PAGE 1: HERO / ĐĨA NHẠC VINYL ================= -->
+        <section class="slide active" id="slide-1">
+            <div class="max-w-2xl w-full text-center flex flex-col items-center my-auto">
+                
+                <div class="inline-block px-5 py-1.5 rounded-full bg-roseLight/80 border border-warmGold/40 text-deepRose text-xs sm:text-sm font-semibold tracking-wider mb-4 animate-pulse">
+                    🌸 20 THÁNG 10 YÊU THƯƠNG 🌸
+                </div>
+                
+                <h1 class="font-cursive text-5xl sm:text-7xl md:text-8xl gold-gradient-text my-2 drop-shadow-sm leading-tight">
+                    Happy Women's Day
+                </h1>
+                
+                <p id="hero-recipient-display" class="font-handwriting text-2xl sm:text-4xl text-roseGold mt-1 mb-6 font-bold">
+                    Gửi Người Phụ Nữ Tuyệt Vời Nhất
+                </p>
+
+                <!-- Vinyl Record Animation Display -->
+                <div class="relative w-40 h-40 sm:w-48 sm:h-48 my-4 flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full border-4 border-warmGold/30 animate-ping opacity-25"></div>
+                    <div id="hero-record-disc" class="w-full h-full rounded-full bg-gradient-to-tr from-gray-900 via-gray-800 to-black p-3 shadow-2xl flex items-center justify-center border-2 border-warmGold/50">
+                        <div class="w-full h-full rounded-full border border-gray-700 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-roseGold flex flex-col items-center justify-center text-white text-[10px] text-center p-1 border-2 border-white/80 shadow-inner">
+                                <i class="fa-solid fa-heart text-xs mb-0.5"></i>
+                                <span class="font-bold leading-none">20/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="max-w-md text-gray-600 text-xs sm:text-sm leading-relaxed my-4">
+                    Cảm ơn bạn vì đã luôn tỏa sáng, mang lại sự dịu dàng và niềm hạnh phúc ấm áp. Chúc bạn một ngày 20/10 ngập tràn niềm vui!
+                </p>
+
+                <!-- Next CTA Button -->
+                <button class="next-slide-btn glow-btn px-8 py-3.5 mt-2 bg-gradient-to-r from-roseGold to-warmGold text-white font-semibold rounded-full text-sm sm:text-base transition-all transform hover:scale-105 flex items-center gap-3">
+                    <span>Khám Phá Món Quà</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 2: THIỆP 3D TƯƠNG TÁC ================= -->
+        <section class="slide" id="slide-2">
+            <div class="max-w-md w-full text-center flex flex-col items-center my-auto">
+                
+                <div class="mb-4">
+                    <h2 class="font-cursive text-4xl sm:text-5xl text-roseGold">Thiệp Yêu Thương 3D</h2>
+                    <p class="text-xs text-gray-500 mt-1">Chạm vào thiệp để mở ra lời chúc lãng mạn</p>
+                </div>
+
+                <!-- 3D Card Component -->
+                <div class="card-perspective w-full h-[400px] sm:h-[440px] my-2 cursor-pointer">
+                    <div id="interactive-card" class="card-inner relative w-full h-full duration-700 shadow-2xl rounded-2xl">
+                        
+                        <!-- CARD FRONT -->
+                        <div class="card-front absolute inset-0 bg-gradient-to-br from-roseSoft via-white to-roseLight border-2 border-warmGold/40 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-lg">
+                            <div class="w-full flex justify-between items-center border-b border-roseGold/20 pb-3">
+                                <span class="text-[10px] font-semibold tracking-widest text-warmGold uppercase">Special Gift Card</span>
+                                <i class="fa-solid fa-heart text-roseGold"></i>
+                            </div>
+
+                            <div class="my-auto space-y-3">
+                                <div class="w-24 h-24 mx-auto rounded-full bg-roseLight/80 flex items-center justify-center border-2 border-warmGold/50 shadow-inner">
+                                    <i class="fa-solid fa-envelope-open-text text-4xl text-roseGold"></i>
+                                </div>
+                                <h3 class="font-handwriting text-2xl text-deepRose font-bold">Món Quà Trái Tim</h3>
+                                <p id="card-front-recipient" class="text-xs font-medium text-gray-600 bg-white/80 py-1.5 px-4 rounded-full border border-roseGold/20 inline-block shadow-sm">
+                                    Gửi Người Phụ Nữ Tuyệt Vời
+                                </p>
+                            </div>
+
+                            <div class="text-[11px] text-roseGold font-medium animate-pulse flex items-center gap-1">
+                                <span>Chạm để mở thiệp</span> <i class="fa-solid fa-hand-pointer"></i>
+                            </div>
+                        </div>
+
+                        <!-- CARD BACK / INSIDE -->
+                        <div class="card-back absolute inset-0 bg-white border-2 border-warmGold/50 rounded-2xl p-6 flex flex-col justify-between text-gray-700 shadow-xl bg-[radial-gradient(#ffe4e1_1px,transparent_1px)] [background-size:16px_16px]">
+                            
+                            <div class="text-right text-[10px] text-warmGold font-semibold border-b pb-1.5">
+                                🌺 20.10.2026 🌺
+                            </div>
+
+                            <div class="my-auto overflow-y-auto max-h-[260px] pr-1 text-left">
+                                <h4 id="card-inside-recipient" class="font-handwriting text-xl text-roseGold font-bold mb-2">
+                                    Gửi người tuyệt vời nhất,
+                                </h4>
+                                <p id="card-inside-message" class="text-xs leading-relaxed text-gray-600 whitespace-pre-line font-medium">
+Nhân ngày Phụ nữ Việt Nam 20/10, xin gửi tới bạn những lời chúc tốt đẹp và chân thành nhất! 
+
+Chúc bạn luôn mỉm cười rạng rỡ như những bông hoa tươi thắm, luôn tự tin, yêu đời và đạt được mọi ước mơ của mình. 
+
+Mong rằng mỗi ngày trôi qua của bạn đều ngập tràn niềm vui, bình yên và hạnh phúc!
+                                </p>
+                            </div>
+
+                            <div class="pt-2 border-t border-roseLight flex justify-between items-center text-xs text-roseGold">
+                                <span id="card-inside-sender" class="font-cursive text-lg">From with love</span>
+                                <i class="fa-solid fa-sparkles text-warmGold"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Next CTA Button -->
+                <button class="next-slide-btn glow-btn px-8 py-3.5 mt-4 bg-gradient-to-r from-roseGold to-warmGold text-white font-semibold rounded-full text-sm transition-all transform hover:scale-105 flex items-center gap-3">
+                    <span>Nhận Hộp Quà May Mắn</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: HỘP QUÀ & VOUCHER ================= -->
+        <section class="slide" id="slide-3">
+            <div class="max-w-md w-full text-center flex flex-col items-center my-auto">
+                
+                <div class="mb-4">
+                    <h2 class="font-cursive text-4xl sm:text-5xl text-roseGold">Hộp Quà Bất Ngờ</h2>
+                    <p class="text-xs text-gray-500 mt-1">Mở hộp quà để nhận Voucher tinh thần ngọt ngào dành riêng cho bạn!</p>
+                </div>
+
+                <!-- Gift Interactive Container -->
+                <div class="my-4 flex flex-col items-center">
+                    <div id="gift-box-btn" class="gift-box cursor-pointer bg-white/90 backdrop-blur border-2 border-warmGold/60 p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all transform flex flex-col items-center justify-center w-52 h-52 relative group">
+                        <div class="text-5xl text-roseGold mb-2 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <span class="text-xs font-bold text-warmGold uppercase tracking-wider">Rút Voucher</span>
+                        <span class="text-[10px] text-gray-400 mt-1">Chạm để nhận quà</span>
+                    </div>
+                </div>
+
+                <!-- Next CTA Button -->
+                <button class="next-slide-btn glow-btn px-8 py-3.5 mt-4 bg-gradient-to-r from-roseGold to-warmGold text-white font-semibold rounded-full text-sm transition-all transform hover:scale-105 flex items-center gap-3">
+                    <span>Đọc Tâm Thư Yêu Thương</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 4: TÂM THƯ LẮNG ĐỘNG (TYPEWRITER) ================= -->
+        <section class="slide" id="slide-4">
+            <div class="max-w-lg w-full text-center flex flex-col items-center my-auto">
+                
+                <div class="mb-3">
+                    <h2 class="font-cursive text-4xl sm:text-5xl text-roseGold">Tâm Thư Lắng Đọng</h2>
+                    <p class="text-xs text-gray-500 mt-1">Những dòng chữ từ sâu thẳm trái tim</p>
+                </div>
+
+                <!-- Typewriter Letter Box -->
+                <div class="glass-card w-full rounded-2xl p-6 sm:p-8 text-left shadow-2xl border border-warmGold/30 my-3 relative min-h-[220px]">
+                    <div class="text-roseGold text-lg mb-2">
+                        <i class="fa-solid fa-quote-left"></i>
+                    </div>
+                    
+                    <p id="typewriter-text" class="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium min-h-[120px] whitespace-pre-line typewriter-cursor">
+                        <!-- Typewriter Text Dynamic -->
+                    </p>
+
+                    <div class="text-right text-warmGold text-lg mt-2">
+                        <i class="fa-solid fa-quote-right"></i>
+                    </div>
+                </div>
+
+                <!-- Replay / Finish CTA Button -->
+                <button id="restart-btn" class="glow-btn px-8 py-3.5 mt-2 bg-gradient-to-r from-roseGold to-warmGold text-white font-semibold rounded-full text-sm transition-all transform hover:scale-105 flex items-center gap-3">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Xem Lai Từ Đầu</span>
+                </button>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MODAL VOUCHER GIFT -->
+    <div id="gift-modal" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-gradient-to-b from-white to-roseSoft rounded-3xl p-6 sm:p-8 w-full max-w-sm text-center shadow-2xl border-2 border-warmGold/50 transform scale-90 transition-transform duration-300 relative overflow-hidden">
+            
+            <div class="w-16 h-16 bg-roseLight rounded-full flex items-center justify-center mx-auto text-roseGold text-3xl mb-3 border border-warmGold/30">
+                <i id="gift-modal-icon" class="fa-solid fa-ticket"></i>
+            </div>
+
+            <h3 class="font-cursive text-3xl text-roseGold mb-1">Chúc Mừng Bạn!</h3>
+            <p class="text-xs text-gray-500 mb-3">Bạn đã rút được Voucher Đặc Biệt:</p>
+
+            <div class="bg-white/90 p-4 rounded-2xl border-2 border-dashed border-roseGold/40 shadow-inner mb-5">
+                <p id="gift-result-text" class="font-bold text-deepRose text-sm sm:text-base">
+                    "Voucher 1 Buổi đi ăn tất cả món ngon bạn thích!"
+                </p>
+            </div>
+
+            <button id="close-gift-modal" class="px-6 py-2.5 bg-gradient-to-r from-roseGold to-warmGold text-white font-semibold text-xs sm:text-sm rounded-full shadow-md hover:opacity-90 transition">
+                Nhận Voucher Này 💖
+            </button>
+        </div>
+    </div>
+
+    <!-- TÙY CHỈNH NÚT ẨN TINH TẾ GÓC DƯỚI -->
+    <div class="fixed bottom-4 right-4 z-40">
+        <button id="toggle-config-btn" class="w-9 h-9 bg-white/70 hover:bg-roseGold hover:text-white text-roseGold/70 rounded-full shadow-md backdrop-blur flex items-center justify-center transition-all opacity-60 hover:opacity-100" title="Tùy chỉnh thông tin">
+            <i class="fa-solid fa-gear text-sm"></i>
+        </button>
+    </div>
+
+    <!-- MODAL TÙY CHỈNH THÔNG TIN -->
+    <div id="config-modal" class="fixed inset-0 bg-black/50 z-50 backdrop-blur-sm flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl border border-warmGold/30 transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b">
+                <h3 class="text-base font-bold text-roseGold flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Tùy Chỉnh Thông Tin
+                </h3>
+                <button id="close-config-btn" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+            </div>
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Tên Người Nhận (VD: Mẹ yêu, Em yêu...)</label>
+                    <input type="text" id="input-recipient" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-roseGold focus:outline-none" value="Người Phụ Nữ Tuyệt Vời Nhất">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Tên / Biệt Danh Người Gửi</label>
+                    <input type="text" id="input-sender" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-roseGold focus:outline-none" value="Gửi từ trái tim thương yêu">
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Lời chúc bên trong Thiệp 3D</label>
+                    <textarea id="input-card-message" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-roseGold focus:outline-none text-xs leading-relaxed"></textarea>
+                </div>
+                <div>
+                    <label class="block font-medium text-gray-700 mb-1">Đoạn Tâm Thư (Trang 4)</label>
+                    <textarea id="input-letter-message" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-roseGold focus:outline-none text-xs leading-relaxed"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-5 flex justify-end">
+                <button id="save-config-btn" class="w-full py-2.5 bg-roseGold hover:bg-deepRose text-white font-semibold rounded-lg shadow-md transition text-xs">
+                    Cập Nhật Thông Tin
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data mặc định
+        const defaultData = {
+            recipient: "Người Phụ Nữ Tuyệt Vời",
+            sender: "Gửi từ trái tim thương yêu",
+            cardMessage: `Nhân ngày Phụ nữ Việt Nam 20/10, xin gửi tới bạn những lời chúc tốt đẹp và chân thành nhất! \n\nChúc bạn luôn mỉm cười rạng rỡ như những bông hoa tươi thắm, luôn tự tin, yêu đời và đạt được mọi ước mơ của mình. \n\nMong rằng mỗi ngày trôi qua của bạn đều ngập tràn niềm vui, bình yên và hạnh phúc!`,
+            letterMessage: `Cảm ơn bạn đã xuất hiện và làm cho thế giới này trở nên dịu dàng, ấm áp hơn bao giờ hết.\n\nHy vọng những niềm vui nhỏ bé trong ngày hôm nay sẽ mang đến cho bạn một nụ cười rạng rỡ. Chúc bạn một đời bình an, được cưng chiều và luôn hạnh phúc!`
+        };
+
+        // Danh sách Voucher ngẫu nhiên
+        const giftList = [
+            { text: "Voucher: 1 Buổi đi ăn tất cả món ngon bạn thích!", icon: "fa-utensils" },
+            { text: "Voucher: 1 Ngày làm 'Osin' vô điều kiện - bảo gì làm nấy!", icon: "fa-hand-sparkles" },
+            { text: "Voucher: 1 Cái ôm thật ấm áp và vỗ về không giới hạn!", icon: "fa-heart" },
+            { text: "Voucher: 1 Buổi đi xem phim & đi chơi trọn vẹn cuối tuần!", icon: "fa-film" },
+            { text: "Voucher: Mua sắm tự do - Có người thanh toán hóa đơn!", icon: "fa-bag-shopping" },
+            { text: "Lời chúc: Luôn trẻ đẹp, rạng rỡ, sức khỏe dồi dào và vạn sự như ý!", icon: "fa-crown" },
+            { text: "Voucher: 1 Buổi Massage thư giãn tận tình chu đáo!", icon: "fa-spa" }
+        ];
+
+        // Canvas Particles (Cánh hoa hồng & Trái tim trôi)
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 2 - 1;
+                this.type = Math.random() > 0.4 ? 'petal' : 'heart';
+                this.color = Math.random() > 0.5 ? '#B76E79' : '#FFB6C1';
+                this.opacity = Math.random() * 0.6 + 0.4;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y / 30) * 0.5;
+                this.angle += this.spin;
+                if (this.y > canvas.height + 20) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.angle * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+
+                if (this.type === 'petal') {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(this.size, -this.size, this.size, 0);
+                    ctx.quadraticCurveTo(this.size, this.size, 0, 0);
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = '#E6005C';
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(0, topCurveHeight);
+                    ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                    ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 35; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+
+        // Music Controller
+        const audio = document.getElementById('bg-audio');
+        const toggleMusicBtn = document.getElementById('toggle-music-btn');
+        const playIcon = document.getElementById('play-icon');
+        const recordIcon = document.getElementById('record-icon');
+        const heroRecordDisc = document.getElementById('hero-record-disc');
+        const visualizer = document.getElementById('visualizer');
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.className = 'fa-solid fa-play text-xs';
+                recordIcon.classList.remove('spin-slow');
+                heroRecordDisc.classList.remove('spin-slow');
+                visualizer.classList.add('hidden');
+            } else {
+                audio.play().then(() => {
+                    playIcon.className = 'fa-solid fa-pause text-xs';
+                    recordIcon.classList.add('spin-slow');
+                    heroRecordDisc.classList.add('spin-slow');
+                    visualizer.classList.remove('hidden');
+                }).catch(e => console.log("Audio play blocked", e));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        toggleMusicBtn.addEventListener('click', togglePlay);
+
+
+        // MULTI-STEP SLIDE PRESENTATION LOGIC
+        const slides = document.querySelectorAll('.slide');
+        const prevStepBtn = document.getElementById('prev-step-btn');
+        let currentSlide = 0;
+        let isNavigating = false;
+
+        function updateSlidePosition(nextIndex) {
+            if (nextIndex < 0 || nextIndex >= slides.length || isNavigating) return;
+            isNavigating = true;
+
+            slides.forEach((s, idx) => {
+                s.classList.remove('active', 'prev-slide');
+                if (idx < nextIndex) {
+                    s.classList.add('prev-slide');
+                }
+            });
+
+            currentSlide = nextIndex;
+            slides[currentSlide].classList.add('active');
+
+            // Cập nhật nút Prev
+            if (currentSlide > 0) {
+                prevStepBtn.classList.remove('opacity-0', 'pointer-events-none', '-translate-x-2');
+                prevStepBtn.classList.add('opacity-100', 'translate-x-0');
+            } else {
+                prevStepBtn.classList.add('opacity-0', 'pointer-events-none', '-translate-x-2');
+                prevStepBtn.classList.remove('opacity-100', 'translate-x-0');
+            }
+
+            // Tự động kích hoạt hiệu ứng Typewriter khi tới Trang 4
+            if (currentSlide === 3) {
+                startTypewriter();
+            }
+
+            // Bắt đầu nhạc khi bấm qua trang đầu
+            if (!isPlaying && currentSlide > 0) {
+                togglePlay();
+            }
+
+            setTimeout(() => {
+                isNavigating = false;
+            }, 800);
+        }
+
+        // Event Next Slide BTNs
+        document.querySelectorAll('.next-slide-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                updateSlidePosition(currentSlide + 1);
+            });
+        });
+
+        // Event Prev Step BTN
+        prevStepBtn.addEventListener('click', () => {
+            updateSlidePosition(currentSlide - 1);
+        });
+
+        // Event Restart BTN Trang 4
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            updateSlidePosition(0);
+        });
+
+        // 1. SWIPE GESTURE DETECT (Cho di động)
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        window.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const distance = touchStartY - touchEndY;
+            if (Math.abs(distance) > 50) {
+                if (distance > 0) {
+                    // Vuốt lên -> Sang trang kế tiếp
+                    updateSlidePosition(currentSlide + 1);
+                } else {
+                    // Vuốt xuống -> Quay lại trang trước
+                    updateSlidePosition(currentSlide - 1);
+                }
+            }
+        }
+
+        // 2. WHEEL EVENT SCROLL (Cho máy tính)
+        let wheelTimeout;
+        window.addEventListener('wheel', e => {
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (e.deltaY > 30) {
+                    updateSlidePosition(currentSlide + 1);
+                } else if (e.deltaY < -30) {
+                    updateSlidePosition(currentSlide - 1);
+                }
+            }, 60);
+        }, { passive: true });
+
+
+        // TYPEWRITER EFFECT (TRANG 4)
+        const typewriterEl = document.getElementById('typewriter-text');
+        let typewriterInterval;
+
+        function startTypewriter() {
+            typewriterEl.textContent = '';
+            const textToType = defaultData.letterMessage;
+            let i = 0;
+
+            clearInterval(typewriterInterval);
+            typewriterInterval = setInterval(() => {
+                if (i < textToType.length) {
+                    typewriterEl.textContent += textToType.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                }
+            }, 45);
+        }
+
+
+        // 3D CARD INTERACTIVE
+        const card = document.getElementById('interactive-card');
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-open');
+            if (card.classList.contains('is-open')) {
+                confetti({
+                    particleCount: 70,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+            }
+        });
+
+
+        // HỦ RÚT THÂM VOUCHER
+        const giftBoxBtn = document.getElementById('gift-box-btn');
+        const giftModal = document.getElementById('gift-modal');
+        const closeGiftModal = document.getElementById('close-gift-modal');
+        const giftResultText = document.getElementById('gift-result-text');
+        const giftModalIcon = document.getElementById('gift-modal-icon');
+
+        function openModal(modal) {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.firstElementChild.classList.remove('scale-90');
+                modal.firstElementChild.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modal) {
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-90');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        giftBoxBtn.addEventListener('click', () => {
+            const randomGift = giftList[Math.floor(Math.random() * giftList.length)];
+            giftResultText.textContent = `"${randomGift.text}"`;
+            giftModalIcon.className = `fa-solid ${randomGift.icon}`;
+
+            openModal(giftModal);
+
+            confetti({
+                particleCount: 100,
+                spread: 90,
+                origin: { y: 0.5 }
+            });
+        });
+
+        closeGiftModal.addEventListener('click', () => closeModal(giftModal));
+
+
+        // CONFIG MODAL LOGIC
+        const configModal = document.getElementById('config-modal');
+        const toggleConfigBtn = document.getElementById('toggle-config-btn');
+        const closeConfigBtn = document.getElementById('close-config-btn');
+        const saveConfigBtn = document.getElementById('save-config-btn');
+
+        const inputRecipient = document.getElementById('input-recipient');
+        const inputSender = document.getElementById('input-sender');
+        const inputCardMessage = document.getElementById('input-card-message');
+        const inputLetterMessage = document.getElementById('input-letter-message');
+
+        const heroRecipientDisplay = document.getElementById('hero-recipient-display');
+        const cardFrontRecipient = document.getElementById('card-front-recipient');
+        const cardInsideRecipient = document.getElementById('card-inside-recipient');
+        const cardInsideSender = document.getElementById('card-inside-sender');
+        const cardInsideMessage = document.getElementById('card-inside-message');
+
+        inputCardMessage.value = defaultData.cardMessage;
+        inputLetterMessage.value = defaultData.letterMessage;
+
+        toggleConfigBtn.addEventListener('click', () => openModal(configModal));
+        closeConfigBtn.addEventListener('click', () => closeModal(configModal));
+
+        saveConfigBtn.addEventListener('click', () => {
+            const recipientVal = inputRecipient.value.trim() || defaultData.recipient;
+            const senderVal = inputSender.value.trim() || defaultData.sender;
+            const cardMsgVal = inputCardMessage.value.trim() || defaultData.cardMessage;
+            const letterMsgVal = inputLetterMessage.value.trim() || defaultData.letterMessage;
+
+            defaultData.letterMessage = letterMsgVal;
+
+            heroRecipientDisplay.textContent = `Gửi ${recipientVal}`;
+            cardFrontRecipient.textContent = `Gửi ${recipientVal}`;
+            cardInsideRecipient.textContent = `Gửi ${recipientVal},`;
+            cardInsideSender.textContent = senderVal;
+            cardInsideMessage.textContent = cardMsgVal;
+
+            if (currentSlide === 3) {
+                startTypewriter();
+            }
+
+            closeModal(configModal);
+            confetti({ particleCount: 30, spread: 40 });
+        });
+
+    </script>
+</body>
+</html>
